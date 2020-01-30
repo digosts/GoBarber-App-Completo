@@ -1,0 +1,5 @@
+docker ps
+docker start database
+
+
+yarn sequelize db:migrate
