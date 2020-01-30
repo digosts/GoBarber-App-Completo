@@ -17,6 +17,10 @@ class UserController {
       provider,
     });
   }
+
+  async update(req, res) {
+    return res.status(400).json({ error: 'Sem token!' });
+  }
 }
 
 export default new UserController();
