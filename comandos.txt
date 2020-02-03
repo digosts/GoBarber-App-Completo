@@ -1,5 +1,15 @@
 docker ps
 docker start database
 
+docker run --name mongobarber -p 27017:27017 -d -t mongo
 
+// Criar Migrations
+yarn sequelize migration:create --name=create-rec
+yarn sequelize migration:create --name=create-files
+yarn sequelize migration:create --name=appointments
+
+// Executar Migrations
 yarn sequelize db:migrate
+
+// Criar Script de Insert
+yarn sequelize db:seed:all

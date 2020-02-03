@@ -1,36 +1,29 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('users', {
+    return queryInterface.createTable('appointments', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      avatar_id: {
+      user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'files', key: 'id' },
+        references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: true,
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+      provider_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'users', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNull: true,
       },
-      password_hash: {
-        type: Sequelize.STRING,
+      date: {
+        type: Sequelize.DATE,
         allowNull: false,
-      },
-      provider: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -39,6 +32,9 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
+      },
+      canceled_at: {
+        type: Sequelize.DATE,
       },
     });
   },
