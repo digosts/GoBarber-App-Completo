@@ -7,8 +7,9 @@ docker ps
 docker start database
 
 // Criar Migrations
-yarn sequelize migration:create --name=create-rec
+yarn sequelize migration:create --name=create-users
 yarn sequelize migration:create --name=create-files
+yarn sequelize migration:create --name=add-avatar-field-to-users
 yarn sequelize migration:create --name=appointments
 
 // Executar Migrations

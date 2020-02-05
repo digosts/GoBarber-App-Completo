@@ -6,14 +6,14 @@ import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
 import User from '../models/User';
 import File from '../models/File';
-import Mail from '../../lib/mail';
+// import Mail from '../../lib/mail';
 
 class AppointmentController {
   async index(req, res) {
     const { page = 1 } = req.query;
 
     const appointments = await Appointment.findAll({
-      where: { user_id: req.user_id, canceled_at: null },
+      where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date'],
       limit: 20,
@@ -23,13 +23,13 @@ class AppointmentController {
           model: User,
           as: 'provider',
           attributes: ['id', 'name'],
-          include: [
+          /* include: [
             {
               model: File,
               as: 'avatar',
               attributes: ['id', 'path', 'url'],
             },
-          ],
+          ], */
         },
       ],
     });
@@ -92,15 +92,21 @@ class AppointmentController {
     }
 
     const appointment = await Appointment.create({
-      user_id: req.user_id,
+      user_id: req.userId,
       provider_id,
       date: hourStart,
     });
 
     /** Notificar agendamento */
     const user = await User.findByPk(req.user_id);
+
     const formatDate = format(hourStart, "'dia' dd 'de' 'MMMM', às 'H:mm'h", {
       locale: pt,
+    });
+
+    return res.status(200).json({
+      name: user.name,
+      date: formatDate,
     });
 
     await Notification.create({
@@ -145,7 +151,7 @@ class AppointmentController {
 
     await appointment.Save();
 
-    await Mail.sendMail({
+    /* await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Agendamento cancelado',
       text: 'Você tem um novo agendamento',
@@ -156,7 +162,7 @@ class AppointmentController {
           locale: pt,
         }),
       },
-    });
+    }); */
 
     return res.status(200).json(appointment);
   }
