@@ -11,13 +11,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      avatar_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'files', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-        allowNull: true,
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,

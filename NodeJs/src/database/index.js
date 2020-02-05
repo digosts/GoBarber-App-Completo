@@ -24,8 +24,13 @@ class Database {
 
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/gobarber',
-      { useNewUrlParser: true, useFindAndModify: true }
+      // 'mongodb+srv://apinode:FAiAsafHHacbYBso@dbapinode-jdw1t.mongodb.net/apinode?retryWrites=true&w=majority',
+      'mongodb://apinode:FAiAsafHHacbYBso@dbapinode-shard-00-00-jdw1t.mongodb.net:27017,dbapinode-shard-00-01-jdw1t.mongodb.net:27017,dbapinode-shard-00-02-jdw1t.mongodb.net:27017/apinode?ssl=true&replicaSet=DBApiNode-shard-0&authSource=admin&retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true,
+      }
     );
   }
 }
