@@ -19,7 +19,7 @@ class SessionController {
 
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOssaane({ where: { email } });
 
     if (!user) {
       return res.status(401).json({ erro: 'Usuário não existe!' });
