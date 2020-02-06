@@ -23,13 +23,13 @@ class AppointmentController {
           model: User,
           as: 'provider',
           attributes: ['id', 'name'],
-          /* include: [
+          include: [
             {
               model: File,
               as: 'avatar',
               attributes: ['id', 'path', 'url'],
             },
-          ], */
+          ],
         },
       ],
     });
@@ -98,15 +98,10 @@ class AppointmentController {
     });
 
     /** Notificar agendamento */
-    const user = await User.findByPk(req.user_id);
+    const user = await User.findByPk(req.userId);
 
-    const formatDate = format(hourStart, "'dia' dd 'de' 'MMMM', às 'H:mm'h", {
+    const formatDate = format(hourStart, "'dia' dd 'de' MMMM', às' H:mm'h'", {
       locale: pt,
-    });
-
-    return res.status(200).json({
-      name: user.name,
-      date: formatDate,
     });
 
     await Notification.create({

@@ -9,15 +9,14 @@ class ProviderController {
   async index(req, res) {
     const providers = await User.findAll({
       where: { provider: true },
-      attributes: ['id', 'name', 'email'],
-      /* attributes: ['id', 'name', 'email', 'avatar_id'],
+      attributes: ['id', 'name', 'email', 'avatar_id'],
       include: [
         {
           model: File,
           as: 'avatar',
           attributes: ['name', 'path'],
         },
-      ], */
+      ],
     });
 
     return res.status(200).json({
@@ -27,7 +26,7 @@ class ProviderController {
 
   async listAppointments(req, res) {
     const checkUserProvider = await User.findOne({
-      wehre: { id: req.userId, provider: true },
+      where: { id: req.userId, provider: true },
     });
 
     if (!checkUserProvider) {
@@ -36,14 +35,15 @@ class ProviderController {
       });
     }
 
-    const parseDate = parseISO(req.body.date);
+    const { date } = req.query;
+    const parseDate = parseISO(date);
 
     const appoiments = await Appointment.findAll({
       where: {
         provider_id: req.userId,
         canceled_at: null,
         date: {
-          [Op.betwwn]: [startOfDay(parseDate), endOfDay(parseDate)],
+          [Op.between]: [startOfDay(parseDate), endOfDay(parseDate)],
         },
       },
       order: ['date'],
