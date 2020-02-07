@@ -17,3 +17,16 @@ yarn sequelize db:migrate
 
 // Criar Script de Insert
 yarn sequelize db:seed:all
+
+
+// Criar projeto react
+ create-react-app nomeprojeto
+ 
+// Adicionar Eslint ao projeto
+ yarn add eslint -D
+ 
+// Executar eslint
+ yarn eslint --init
+ 
+// Adicionar Prettier ao projeto
+ yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
