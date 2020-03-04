@@ -10,12 +10,10 @@ import GlobalStyle from './styles/global';
 
 function App() {
   return (
-    <>
-      <Router history={history}>
-        <Routes />
-        <GlobalStyle />
-      </Router>
-    </>
+    <Router history={history}>
+      <Routes />
+      <GlobalStyle />
+    </Router>
   );
 }
 
