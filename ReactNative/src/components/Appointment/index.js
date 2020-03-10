@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useMemo } from 'react';
 import { parseISO, formatRelative } from 'date-fns';
 import pt from 'date-fns/locale/pt';
