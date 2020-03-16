@@ -30,3 +30,7 @@ yarn sequelize db:seed:all
  
 // Adicionar Prettier ao projeto
  yarn add prettier eslint-config-prettier eslint-plugin-prettier babel-eslint -D
+ 
+"oldPassword":"12345678",
+"password":"12345678",
+"confirmPassword":"12345678"
