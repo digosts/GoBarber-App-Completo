@@ -8,7 +8,7 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
-    /* const { email, password } = payload;
+    const { email, password } = payload;
 
     const response = yield call(api.post, 'sessions', {
       email,
@@ -22,13 +22,13 @@ export function* signIn({ payload }) {
       return;
     }
 
-    api.defaults.headers.Authorization = `Bearer ${token}`; */
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
-    // yield put(signInSuccess(token, user));
-    yield put(signInSuccess('aaa', 'Rodrigo Santos'));
+    yield put(signInSuccess(token, user));
 
     history.push('/dashboard');
   } catch (e) {
+    console.tron.log(e);
     toast.error('Falha na autentificação');
     yield put(signFailure());
   }

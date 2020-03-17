@@ -1,22 +1,26 @@
-require('dotenv/config');
-
-module.exports = {
-  dialect: 'postgres',
-  /* host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME, */
-
-  host: 'apigobarber.postgres.uhserver.com',
-  port: '5432',
-  username: 'apigobarber',
-  password: 'R0d4ig02@2@',
-  database: 'apigobarber',
+/* module.exports = {
+  dialect: 'mysql',
+  host: 'localhost',
+  username: 'root',
+  password: '',
+  database: 'apijs',
   define: {
     timestamps: true,
     underscored: true,
     underscoredAll: true,
   },
-  ssl: true,
+}; */
+
+module.exports = {
+  dialect: 'mysql',
+  host: 'mysql669.umbler.com',
+  username: 'apigobaber',
+  password: 'oC+/ez8tF9Xw',
+  database: 'apigobaber',
+  port: 41890,
+  define: {
+    timestamps: true,
+    underscored: true,
+    underscoredAll: true,
+  },
 };
