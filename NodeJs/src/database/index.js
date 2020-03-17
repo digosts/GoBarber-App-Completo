@@ -1,10 +1,11 @@
 import Sequelize from 'sequelize';
 import mongoose from 'mongoose';
-import databaseConfig from '../config/database';
 
 import User from '../app/models/User';
 import File from '../app/models/File';
 import Appointment from '../app/models/Appointment';
+
+import databaseConfig from '../config/database';
 
 const models = [User, File, Appointment];
 

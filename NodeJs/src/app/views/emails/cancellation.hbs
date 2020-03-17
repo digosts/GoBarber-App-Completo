@@ -1,9 +1,13 @@
-<strong>Olá, {{ proider }}</strong>
-<p>Houve um cancelamento de horário, confira os detalhes abaixo:</p>
+<strong>Olá, {{ provider }}</strong>
+<p>
+  Houve um cancelamento de horário, confira os detalhes abaixo:
+</p>
 
 <p>
-  <strong>Cliente: </strong>{{ user }}<br/>
-  <strong>Data/Hora: </strong>{{ date }}<br/>
-  <br/>
-  <small>O horário está liberado para um novo agendamento!</small>
+  <strong>Cliente: </strong> {{ user }} <br>
+  <strong>Data/Hora </strong> {{ date }} <br>
+  <br>
+  <small>
+    O horário está novamente disponível para novos agendamentos.
+  </small>
 </p>

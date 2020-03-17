@@ -1,16 +1,17 @@
 import multer from 'multer';
-import crypt from 'crypto';
-
+import crypto from 'crypto';
 import { extname, resolve } from 'path';
 
 export default {
   storage: multer.diskStorage({
     destination: resolve(__dirname, '..', '..', 'tmp', 'uploads'),
-    filename: (req, file, cb) => {
-      crypt.randomBytes(16, (err, res) => {
-        if (err) return cb(err);
+    filename: (req, file, callBack) => {
+      crypto.randomBytes(16, (err, res) => {
+        if (err) {
+          return callBack(err);
+        }
 
-        return cb(null, res.toString('hex') + extname(file.originalname));
+        return callBack(null, res.toString('hex') + extname(file.originalname));
       });
     },
   }),

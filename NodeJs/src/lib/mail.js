@@ -2,12 +2,12 @@ import nodemailer from 'nodemailer';
 import { resolve } from 'path';
 import exphbs from 'express-handlebars';
 import nodemailerhbs from 'nodemailer-express-handlebars';
-import mailConfig from '../config/mail';
+
+import configMail from '../config/mail';
 
 class Mail {
   constructor() {
-    const { host, port, secure, auth } = mailConfig;
-
+    const { host, port, secure, auth } = configMail;
     this.transporter = nodemailer.createTransport({
       host,
       port,
@@ -15,12 +15,16 @@ class Mail {
       auth: auth.user ? auth : null,
     });
 
-    this.configTemplates();
+    this.configureTemplates();
   }
 
-  configTemplates() {
+  configureTemplates() {
     const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
 
+    /**
+     * Configurando a Engine de template.
+     * O compile, é como ele compila/interpreta nossos templates.
+     */
     this.transporter.use(
       'compile',
       nodemailerhbs({
@@ -38,7 +42,7 @@ class Mail {
 
   sendMail(message) {
     return this.transporter.sendMail({
-      ...mailConfig.default,
+      ...configMail.default,
       ...message,
     });
   }

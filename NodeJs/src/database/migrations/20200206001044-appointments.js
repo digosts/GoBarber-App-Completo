@@ -7,6 +7,10 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
+      date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       user_id: {
         type: Sequelize.INTEGER,
         references: { model: 'users', key: 'id' },
@@ -21,9 +25,8 @@ module.exports = {
         onDelete: 'SET NULL',
         allowNull: true,
       },
-      date: {
+      canceled_at: {
         type: Sequelize.DATE,
-        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -32,9 +35,6 @@ module.exports = {
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
-      },
-      canceled_at: {
-        type: Sequelize.DATE,
       },
     });
   },

@@ -1,9 +1,8 @@
-import Notification from '../schemas/Notification';
 import User from '../models/User';
+import Notification from '../schemas/Notification';
 
 class NotificationController {
   async index(req, res) {
-    /** Checar se é um provider válido */
     const isProvider = await User.findOne({
       where: { id: req.userId, provider: true },
     });

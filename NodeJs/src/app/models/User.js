@@ -16,6 +16,7 @@ class User extends Model {
       }
     );
 
+    // criptografando a senha antes de salvar o usuario
     this.addHook('beforeSave', async user => {
       if (user.password) {
         user.password_hash = await bcrypt.hash(user.password, 8);
@@ -25,12 +26,15 @@ class User extends Model {
     return this;
   }
 
-  checkPassword(password) {
-    return bcrypt.compare(password, this.password_hash);
+  static associate(models) {
+    this.belongsTo(models.File, {
+      as: 'avatar',
+      foreignKey: 'avatar_id',
+    });
   }
 
-  static associate(models) {
-    this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 

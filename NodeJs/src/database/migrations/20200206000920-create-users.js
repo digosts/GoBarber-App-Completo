@@ -20,17 +20,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      avatar_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'files', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-        allowNull: true,
-      },
       provider: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
