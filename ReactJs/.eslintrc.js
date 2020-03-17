@@ -4,12 +4,7 @@ module.exports = {
     jest: true,
     browser: true
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-    'prettier',
-    'prettier/react',
-  ],
+  extends: ["airbnb", "prettier", "prettier/react"],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -40,9 +35,9 @@ module.exports = {
   },
   settings: {
     "import/resolver": {
-      "babel-plugin-root-import":{
-        rootPathSuffix: "src",
-      }
+      "babel-plugin-root-import": {
+        rootPathSuffix: "src"
+      },
     },
   },
 };

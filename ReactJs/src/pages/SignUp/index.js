@@ -1,21 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import logo from '~/assets/logo.svg';
-
 import { signUpRequest } from '~/store/modules/auth/actions';
 
+import logo from '~/assets/logo.svg';
+
 const schema = Yup.object().shape({
-  name: Yup.string().required('O nome é obrigatório!'),
+  name: Yup.string().required('O nome é obrigatorio'),
   email: Yup.string()
-    .email('Insira um e-mail válido!')
-    .required('O e-mail é obrigatório!'),
+    .email('Insira um e-email válido')
+    .required('O e-email é obrigatório'),
   password: Yup.string()
     .min(6, 'No mínimo 6 caracteres')
-    .required('A senha é obrigatória!'),
+    .required('A senha é obrigatória'),
 });
 
 export default function SignUp() {
@@ -28,14 +28,17 @@ export default function SignUp() {
   return (
     <>
       <img src={logo} alt="GoBarber" />
-
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="name" type="text" placeholder="Nome Completo" />
+        <Input name="name" type="text" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="Seu e-mail" />
-        <Input name="password" type="password" placeholder="Sua senha" />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Sua senha secreta"
+        />
 
-        <button type="submit">Registrar</button>
-        <Link to="/">Acessar conta</Link>
+        <button type="submit">Criar conta</button>
+        <Link to="/">Já tenho login</Link>
       </Form>
     </>
   );

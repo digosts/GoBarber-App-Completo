@@ -1,10 +1,10 @@
-import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { toast } from 'react-toastify';
-
-import history from '~/services/history';
-import api from '~/services/api';
+import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import { signInSuccess, signFailure } from './actions';
+
+import api from '~/services/api';
+import history from '~/services/history';
 
 export function* signIn({ payload }) {
   try {
@@ -27,9 +27,9 @@ export function* signIn({ payload }) {
     yield put(signInSuccess(token, user));
 
     history.push('/dashboard');
-  } catch (e) {
-    console.tron.log(e);
-    toast.error('Falha na autentificação');
+  } catch (error) {
+    toast.error('Falha na autenticação, verifique seus dados');
+
     yield put(signFailure());
   }
 }
@@ -46,8 +46,9 @@ export function* signUp({ payload }) {
     });
 
     history.push('/');
-  } catch (e) {
-    toast.error('Falha ao tentar realizar essa operação!');
+  } catch (error) {
+    toast.error('Falha no cadastro, verifique seus dados');
+
     yield put(signFailure());
   }
 }
@@ -55,15 +56,20 @@ export function* signUp({ payload }) {
 export function setToken({ payload }) {
   if (!payload) return;
 
-  const token = payload.auth;
+  const { token } = payload.auth;
 
   if (token) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
   }
 }
 
+export function signOut() {
+  history.push('/');
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);

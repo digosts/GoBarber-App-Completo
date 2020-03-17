@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background: #fff;
   padding: 0 30px;
+  background: #fff;
 `;
 
 export const Content = styled.div`
   height: 64px;
   max-width: 900px;
   margin: 0 auto;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,6 +60,7 @@ export const Profile = styled.div`
   }
 
   img {
+    width: 32px;
     height: 32px;
     border-radius: 50%;
   }

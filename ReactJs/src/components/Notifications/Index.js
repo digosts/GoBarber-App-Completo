@@ -1,66 +1,79 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+
 import { MdNotifications } from 'react-icons/md';
-import { parseISO, formatDistance } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 
-import api from '../../services/api';
-
-import {
-  Container,
-  Badge,
-  NotificationList,
-  Scroll,
-  Notification,
-} from './styles';
+import { formatDistance, parseISO } from 'date-fns/esm';
+import { pt } from 'date-fns/esm/locale';
+import * as S from './styles';
+import api from '~/services/api';
 
 export default function Notifications() {
   const [visible, setVisible] = useState(false);
   const [notifications, setNotifications] = useState([]);
 
+  const hasUnread = useMemo(
+    () => !!notifications.find(notification => notification.read === false),
+    [notifications]
+  );
+
   useEffect(() => {
     async function loadNotifications() {
-      try {
-        const response = await api.get('notifications');
+      const response = await api.get('notifications');
 
-        const data = response.data.map(notification => ({
-          ...notifications,
-          timeDistance: formatDistance(
-            parseISO(notification.createdAt),
-            new Date(),
-            { addSuffix: true, locale: pt }
-          ),
-        }));
+      const data = response.data.map(notification => ({
+        ...notification,
+        timeDistance: formatDistance(
+          parseISO(notification.createdAt),
+          new Date(),
+          { addSuffix: true, locale: pt }
+        ),
+      }));
 
-        setNotifications(data);
-      } catch (e) {
-        console.tron.log(e);
-      }
+      console.tron.log(data);
+      setNotifications(data);
     }
 
     loadNotifications();
-  });
+  }, []);
 
   function handleToggleVisible() {
     setVisible(!visible);
   }
 
-  return (
-    <Container>
-      <Badge onClick={handleToggleVisible} hasUnread>
-        <MdNotifications color="#7159c1" size={20} />
-      </Badge>
+  async function handleMarkAsRead(id) {
+    await api.put(`notifications/${id}`);
 
-      <NotificationList visible={visible}>
-        <Scroll>
+    setNotifications(
+      notifications.map(notification =>
+        notification._id === id ? { ...notification, read: true } : notification
+      )
+    );
+  }
+
+  return (
+    <S.Container>
+      <S.Badge onClick={handleToggleVisible} hasUnread={hasUnread}>
+        <MdNotifications color="#7159c1" size={20} />
+      </S.Badge>
+
+      <S.NotificationList visible={visible}>
+        <S.Scroll>
           {notifications.map(notification => (
-            <Notification key={notification._id} unread={!notification.read}>
+            <S.Notification key={notification._id} unread={!notification.read}>
               <p>{notification.content}</p>
               <time>{notification.timeDistance}</time>
-              <button type="button">Marcar como lida</button>
-            </Notification>
+              {!notification.read && (
+                <button
+                  onClick={() => handleMarkAsRead(notification._id)}
+                  type="button"
+                >
+                  Marcar como lida
+                </button>
+              )}
+            </S.Notification>
           ))}
-        </Scroll>
-      </NotificationList>
-    </Container>
+        </S.Scroll>
+      </S.NotificationList>
+    </S.Container>
   );
 }
