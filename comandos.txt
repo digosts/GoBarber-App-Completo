@@ -34,3 +34,4 @@ yarn sequelize db:seed:all
 "oldPassword":"12345678",
 "password":"12345678",
 "confirmPassword":"12345678"
+
